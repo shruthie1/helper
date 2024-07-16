@@ -22,7 +22,7 @@ app.get('/exitPrimary', (req, res, next) => {
 }, async (req, res) => {
   const result = await fetchWithTimeout(`https://uptimechecker2.onrender.com/maskedcls`);
   const clients = result?.data;
-    for (const client of clients) {
+  for (const client of clients) {
     if (client.clientId.toLowerCase().includes('1')) {
       await fetchWithTimeout(`${client.repl}/exit`);
       await sleep(40000);
@@ -37,7 +37,7 @@ app.get('/exitSecondary', (req, res, next) => {
 }, async (req, res) => {
   const result = await fetchWithTimeout(`https://uptimechecker2.onrender.com/maskedcls`);
   const clients = result?.data;
-    for (const client of clients) {
+  for (const client of clients) {
     if (client.clientId.toLowerCase().includes('2')) {
       await fetchWithTimeout(`${client.repl}/exit`);
       await sleep(40000);
