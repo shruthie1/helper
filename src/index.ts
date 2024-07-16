@@ -62,6 +62,4 @@ async function sendToAll(endpoint: string) {
   }
 }
 
-async function sleep(ms: number) {
-  new Promise((resolve) => { setTimeout(resolve, ms) })
-}
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
