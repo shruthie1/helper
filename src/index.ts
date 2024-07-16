@@ -14,8 +14,37 @@ app.get('/sendtoall', (req, res, next) => {
 }, async (req, res) => {
   const endpoint = <string>req.query.query;
   await sendToAll(endpoint)
-
 });
+
+app.get('/exitPrimary', (req, res, next) => {
+  res.send(`exitting Primary`);
+  next()
+}, async (req, res) => {
+  const result = await fetchWithTimeout(`https://uptimechecker2.onrender.com/maskedcls`);
+  const clients = result?.data;
+    for (const client of clients) {
+    if (client.clientId.toLowerCase().includes('1')) {
+      await fetchWithTimeout(`${client.repl}/exit`);
+      await sleep(40000);
+    }
+  }
+});
+
+
+app.get('/exitSecondary', (req, res, next) => {
+  res.send(`exitting Secondary`);
+  next()
+}, async (req, res) => {
+  const result = await fetchWithTimeout(`https://uptimechecker2.onrender.com/maskedcls`);
+  const clients = result?.data;
+    for (const client of clients) {
+    if (client.clientId.toLowerCase().includes('1')) {
+      await fetchWithTimeout(`${client.repl}/exit`);
+      await sleep(40000);
+    }
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
